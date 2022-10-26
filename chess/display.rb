@@ -53,6 +53,12 @@ class Display
 end
 # Collapse
 
+b = Board.new()
+king = b[[0,4]]
+display = Display.new(board)
+display.render
+p king.move_into_check?([4,5])
+
 # board = Board.new()
 
 # board.move_piece('w', [0,0], [2,2])

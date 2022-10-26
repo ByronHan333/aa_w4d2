@@ -3,6 +3,10 @@ require 'colorize'
 class Pawn < Piece
 
     def moves
+        grow_unblocked_moves_in_dir
+    end
+
+    def grow_unblocked_moves_in_dir
         pot_side_steps = self.side_attacks
 
         current_color = self.color
@@ -20,9 +24,6 @@ class Pawn < Piece
     end
 
     # private
-
-    def valid_moves
-    end
 
     def at_start_row?
         if color == :white

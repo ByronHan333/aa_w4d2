@@ -11,9 +11,6 @@ class King < Piece
 
     private
 
-    def valid_moves
-    end
-
     def move_diffs
         [
             [-1, -1],

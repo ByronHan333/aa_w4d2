@@ -5,23 +5,23 @@ class Board
     def self.setup_board(board)
         board.rows.each_with_index do |row, i|
             row.each_with_index do |col, j|
-                board[[i,j]] = Pawn.new('w', board, [i,j]) if i==1
-                board[[i,j]] = Pawn.new('b', board, [i,j]) if i==6
+                board[[i,j]] = Pawn.new(:white, board, [i,j]) if i==1
+                board[[i,j]] = Pawn.new(:black, board, [i,j]) if i==6
                 board[[i,j]] = board.null_piece if i.between?(2,5)
-                board[[i,j]] = Rook.new('w', board, [i,j]) if (i==0 &&j==0) || (i==0 &&j==7)
-                board[[i,j]] = Rook.new('b', board, [i,j]) if (i==7 &&j==0) || (i==7 &&j==7)
+                board[[i,j]] = Rook.new(:white, board, [i,j]) if (i==0 &&j==0) || (i==0 &&j==7)
+                board[[i,j]] = Rook.new(:black, board, [i,j]) if (i==7 &&j==0) || (i==7 &&j==7)
 
-                board[[i,j]] = Knight.new('w', board, [i,j]) if (i==0 &&j==1) || (i==0 &&j==6)
-                board[[i,j]] = Knight.new('b', board, [i,j]) if (i==7 &&j==1) || (i==7 &&j==6)
+                board[[i,j]] = Knight.new(:white, board, [i,j]) if (i==0 &&j==1) || (i==0 &&j==6)
+                board[[i,j]] = Knight.new(:black, board, [i,j]) if (i==7 &&j==1) || (i==7 &&j==6)
 
-                board[[i,j]] = Bishop.new('w', board, [i,j]) if (i==0 &&j==2) || (i==0 &&j==5)
-                board[[i,j]] = Bishop.new('b', board, [i,j]) if (i==7 &&j==2) || (i==7 &&j==5)
+                board[[i,j]] = Bishop.new(:white, board, [i,j]) if (i==0 &&j==2) || (i==0 &&j==5)
+                board[[i,j]] = Bishop.new(:black, board, [i,j]) if (i==7 &&j==2) || (i==7 &&j==5)
 
-                board[[i,j]] = Queen.new('w', board, [i,j]) if (i==0 &&j==3)
-                board[[i,j]] = Queen.new('b', board, [i,j]) if (i==7 &&j==3)
+                board[[i,j]] = Queen.new(:white, board, [i,j]) if (i==0 &&j==3)
+                board[[i,j]] = Queen.new(:black, board, [i,j]) if (i==7 &&j==3)
 
-                board[[i,j]] = King.new('w', board, [i,j]) if (i==0 &&j==4)
-                board[[i,j]] = King.new('b', board, [i,j]) if (i==7 &&j==4)
+                board[[i,j]] = King.new(:white, board, [i,j]) if (i==0 &&j==4)
+                board[[i,j]] = King.new(:black, board, [i,j]) if (i==7 &&j==4)
 
             end
         end
@@ -81,9 +81,9 @@ class Board
         king_position = find_king(color)
         rows.each_with_index do |row, i|
             row.each_with_index do |col, j|
-                if self[[i,j]].color != color && !self[[i,j]].color.nil?
-                    opp_piece = self[[i,j]]
-                    opp_piece.moves.each {|pos| return true if king_position == pos}
+                opp_piece = self[[i,j]]
+                if opp_piece != color && !opp_piece.color.nil?
+                    opp_piece.valid_moves.each {|pos| return true if king_position == pos}
                 end
             end
         end
@@ -104,7 +104,18 @@ class Board
     end
 
     def dup
-
+        new_board = Board.new
+        self.rows.each_with_index do |row, i|
+            row.each_with_index do |piece, j|
+                if piece.is_a?(NullPiece)
+                    new_board[[i, j]] = piece
+                else
+                    class_name = piece.class
+                    new_board[[i, j]] = piece.class.new(piece.color, new_board, piece.pos)
+                end
+            end
+        end
+        new_board
     end
 
     def move_piece!(color, start_pos, end_pos)
@@ -112,26 +123,3 @@ class Board
     end
     # private :null_piece
 end
-
-b = Board.new()
-# p b
-b.move_piece('w', [0,4], [5,4])
-p b.in_check?(:white)
-pawn = b[[6,3]]
-p pawn.forward_steps
-p pawn.side_attacks
-p pawn.at_start_row?
-
-
-# b.move_piece('w', [0,0], [5,0])
-# b.move_piece('w', [0,1], [5,1])
-# b.move_piece('w', [0,2], [5,2])
-# b.move_piece('w', [0,3], [5,3])
-# p b
-# k = b[[5,1]]
-# king = b[[5,4]]
-# r = b[[5,0]]
-# bis = b[[5,2]]
-# q = b[[5,3]]
-# p q.moves
-# p q.moves

@@ -11,20 +11,25 @@ class Piece
 
     end
 
-    def empty? 
+    def empty?(pos)
+        board[pos].is_a?(NullPiece)
+    end
 
+    def opponent?(pos)
+        current_color = color 
+        current_color != board[pos].color
     end
 
     def valid_moves 
 
     end
 
-    def pos=(val)
-        @pos = val
+    def within_bound?(pos)
+        pos.all? {|p| p.between?(0,7)}
     end
 
-    def symbol 
-        return symbol
+    def pos=(val)
+        @pos = val
     end
 
     private

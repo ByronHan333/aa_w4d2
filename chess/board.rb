@@ -68,24 +68,35 @@ class Board
         pos.all?{|i| i.between?(0,7)}
     end
 
-    def valid_cursor?(pos)
-
-    end
-
     def add_piece(piece, pos)
 
     end
 
     def checkmate?(color)
-
+        return true if in_check?(color) && valid_moves.length==0
+        false
     end
 
     def in_check?(color)
-
+        king_position = find_king(color)
+        rows.each_with_index do |row, i|
+            row.each_with_index do |col, j|
+                if self[[i,j]].color != color && !self[[i,j]].color.nil?
+                    opp_piece = self[[i,j]]
+                    opp_piece.moves.each {|pos| return true if king_position == pos}
+                end
+            end
+        end
+        false
     end
 
     def find_king(color)
-
+        rows.each_with_index do |row, i|
+            row.each_with_index do |col, j|
+                return [i,j] if self[[i,j]].is_a?(King) && self[[i,j]].color == color
+            end
+        end
+        nil
     end
 
     def pieces
@@ -102,13 +113,20 @@ class Board
     # private :null_piece
 end
 
-# b = Board.new()
+b = Board.new()
 # p b
+b.move_piece('w', [0,4], [5,4])
+p b.in_check?(:white)
+pawn = b[[6,3]]
+p pawn.forward_steps
+p pawn.side_attacks
+p pawn.at_start_row?
+
+
 # b.move_piece('w', [0,0], [5,0])
 # b.move_piece('w', [0,1], [5,1])
 # b.move_piece('w', [0,2], [5,2])
 # b.move_piece('w', [0,3], [5,3])
-# b.move_piece('w', [0,4], [5,4])
 # p b
 # k = b[[5,1]]
 # king = b[[5,4]]

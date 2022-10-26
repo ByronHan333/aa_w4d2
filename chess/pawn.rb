@@ -1,12 +1,12 @@
 require_relative 'piece'
-
+require 'colorize'
 class Pawn < Piece
 
     def moves
         pot_side_steps = self.side_attacks
 
-        current_color = self.symbol
-        other_color = current_symbol=='w' ? 'b' : 'w'
+        current_color = self.color
+        other_color = current_color==:white ? :black : :white
 
         side_steps = self.side_attacks.select{|pos| within_bound?(pos)}
         side_steps = side_steps.select{|s| board[s].color==other_color}
@@ -19,13 +19,13 @@ class Pawn < Piece
         "♟".colorize(self.color)
     end
 
-    private
+    # private
 
     def valid_moves
     end
 
     def at_start_row?
-        if color == 'w'
+        if color == :white
             return self.pos[0] == 1
         else
             return self.pos[0] == 6
@@ -35,11 +35,11 @@ class Pawn < Piece
     def forward_steps
         res = []
         row, col = self.pos
-        res << [row+1, col] if color=='w' && board[[row+1,col]].is_a?(NullPiece)
-        res << [row+2, col] if color=='w' && board[[row+1,col]].is_a?(NullPiece) && board[[row+2,col]].is_a?(NullPiece) && at_start_row?
+        res << [row+1, col] if color==:white && board[[row+1,col]].is_a?(NullPiece)
+        res << [row+2, col] if color==:white && board[[row+1,col]].is_a?(NullPiece) && board[[row+2,col]].is_a?(NullPiece) && at_start_row?
 
-        res << [row-1, col] if color=='b' && board[[row-1,col]].is_a?(NullPiece)
-        res << [row-2, col] if color=='w' && board[[row-1,col]].is_a?(NullPiece) && board[[row-2,col]].is_a?(NullPiece) && at_start_row?
+        res << [row-1, col] if color==:black && board[[row-1,col]].is_a?(NullPiece)
+        res << [row-2, col] if color==:black && board[[row-1,col]].is_a?(NullPiece) && board[[row-2,col]].is_a?(NullPiece) && at_start_row?
 
         res
     end
@@ -47,8 +47,8 @@ class Pawn < Piece
     def side_attacks
         res = []
         row, col  = self.pos
-        res << [row+1, col-1] << [row+1, col+1] if color=='w'
-        res << [row-1, col-1] << [row-1, col+1] if color=='b'
+        res << [row+1, col-1] << [row+1, col+1] if color==:white
+        res << [row-1, col-1] << [row-1, col+1] if color==:black
         res
     end
 

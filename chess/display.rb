@@ -54,8 +54,10 @@ end
 # Collapse
 
 # board = Board.new()
+
 # board.move_piece('w', [0,0], [2,2])
 # cursor = Cursor.new([0,0], board)
 # display = Display.new(board)
+
 # display.cursor.get_input
 # display.render

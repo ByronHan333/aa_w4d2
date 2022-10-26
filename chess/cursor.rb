@@ -85,20 +85,21 @@ class Cursor
     when :return, :space
       toggle_selected
       return @cursor_pos
-    when :left, :right, :up,  :down
+    when :left, :right, :up, :down
       update_pos(MOVES[key])
     when :ctrl_c
       Process.exit(0)
     else
       puts key
-      puts :right
     end
   end
 
   def update_pos(diff)
-    row, col = @cursor_pos
+    puts "BUGBUGBUG"
+    row, col = cursor_pos
     dy, dx = diff
-    @cursor_pos = [row+dx, col+dy] if board.valid_pos?([row+dx, col+dy])
+    cursor_pos = [row+dx, col+dy] if board.valid_pos?([row+dx, col+dy])
+    nil
   end
 
 end

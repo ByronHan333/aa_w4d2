@@ -25,3 +25,5 @@ display = Display.new(b)
 
 human = HumanPlayer.new(:white, display)
 human.make_move(b)
+
+# human.make_move(b)

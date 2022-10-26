@@ -1,4 +1,5 @@
 require "io/console"
+require 'byebug'
 
 KEYMAP = {
   " " => :space,
@@ -95,10 +96,10 @@ class Cursor
   end
 
   def update_pos(diff)
-    puts "BUGBUGBUG"
-    row, col = cursor_pos
+    # debugger
+    row, col = self.cursor_pos
     dy, dx = diff
-    cursor_pos = [row+dx, col+dy] if board.valid_pos?([row+dx, col+dy])
+    self.cursor_pos = [row+dy, col+dx] if board.valid_pos?([row+dy, col+dx])
     nil
   end
 

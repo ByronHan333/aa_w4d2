@@ -17,11 +17,11 @@ class Board
                 board[[i,j]] = Bishop.new('w', board, [i,j]) if (i==0 &&j==2) || (i==0 &&j==5)
                 board[[i,j]] = Bishop.new('b', board, [i,j]) if (i==7 &&j==2) || (i==7 &&j==5)
 
-                board[[i,j]] = Queen.new('w', board, [i,j]) if (i==0 &&j==3) 
-                board[[i,j]] = Queen.new('b', board, [i,j]) if (i==7 &&j==3) 
+                board[[i,j]] = Queen.new('w', board, [i,j]) if (i==0 &&j==3)
+                board[[i,j]] = Queen.new('b', board, [i,j]) if (i==7 &&j==3)
 
-                board[[i,j]] = King.new('w', board, [i,j]) if (i==0 &&j==4) 
-                board[[i,j]] = King.new('b', board, [i,j]) if (i==7 &&j==4) 
+                board[[i,j]] = King.new('w', board, [i,j]) if (i==0 &&j==4)
+                board[[i,j]] = King.new('b', board, [i,j]) if (i==7 &&j==4)
 
             end
         end
@@ -84,11 +84,11 @@ class Board
 
     end
 
-    def pieces 
+    def pieces
 
     end
 
-    def dup 
+    def dup
 
     end
 
@@ -97,3 +97,19 @@ class Board
     end
     # private :null_piece
 end
+
+b = Board.new()
+# p b
+# b.move_piece('w', [0,0], [5,0])
+# b.move_piece('w', [0,1], [5,1])
+b.move_piece('w', [0,2], [5,2])
+b.move_piece('w', [0,3], [5,3])
+# b.move_piece('w', [0,4], [5,4])
+# p b
+# k = b[[5,1]]
+# king = b[[5,4]]
+# r = b[[5,0]]
+bis = b[[5,2]]
+q = b[[5,3]]
+# p q.moves
+# p q.moves

@@ -67,9 +67,9 @@ class Board
     def valid_pos?(pos)
         pos.all?{|i| i.between?(0,7)}
     end
-    
+
     def valid_cursor?(pos)
-        
+
     end
 
     def add_piece(piece, pos)
@@ -102,18 +102,18 @@ class Board
     # private :null_piece
 end
 
-b = Board.new()
+# b = Board.new()
 # p b
 # b.move_piece('w', [0,0], [5,0])
 # b.move_piece('w', [0,1], [5,1])
-b.move_piece('w', [0,2], [5,2])
-b.move_piece('w', [0,3], [5,3])
+# b.move_piece('w', [0,2], [5,2])
+# b.move_piece('w', [0,3], [5,3])
 # b.move_piece('w', [0,4], [5,4])
 # p b
 # k = b[[5,1]]
 # king = b[[5,4]]
 # r = b[[5,0]]
-bis = b[[5,2]]
-q = b[[5,3]]
+# bis = b[[5,2]]
+# q = b[[5,3]]
 # p q.moves
 # p q.moves

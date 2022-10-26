@@ -1,14 +1,14 @@
-class Piece 
+class Piece
     attr_reader :pos, :color, :board
 
     def initialize(color, board, pos)
-        @color = color
+        @color = color == 'w' ? :white : :black
         @board = board
         @pos = pos
     end
 
-    def to_s 
-
+    def to_s
+        " #{symbol} "
     end
 
     def empty?(pos)
@@ -16,11 +16,11 @@ class Piece
     end
 
     def opponent?(pos)
-        current_color = color 
+        current_color = color
         current_color != board[pos].color
     end
 
-    def valid_moves 
+    def valid_moves
 
     end
 

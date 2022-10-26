@@ -15,6 +15,10 @@ class Pawn < Piece
         side_steps+forward_steps
     end
 
+    def symbol
+        "♟".colorize(self.color)
+    end
+
     private
 
     def valid_moves

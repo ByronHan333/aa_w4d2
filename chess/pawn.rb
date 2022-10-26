@@ -3,12 +3,6 @@ require_relative 'piece'
 class Pawn < Piece
 
     def moves
-        valid_moves
-    end
-    
-    private
-
-    def valid_moves
         pot_side_steps = self.side_attacks
 
         current_color = self.symbol
@@ -19,6 +13,11 @@ class Pawn < Piece
 
         forward_steps = self.forward_steps.select{|pos| within_bound?(pos)}
         side_steps+forward_steps
+    end
+
+    private
+
+    def valid_moves
     end
 
     def at_start_row?
@@ -33,10 +32,10 @@ class Pawn < Piece
         res = []
         row, col = self.pos
         res << [row+1, col] if color=='w' && board[[row+1,col]].is_a?(NullPiece)
-        res << [row+2, col] if color=='w' && board[[row+1,col]].is_a?(NullPiece) && board[[row+2,col]].is_a?(NullPiece) && at_start_row? 
+        res << [row+2, col] if color=='w' && board[[row+1,col]].is_a?(NullPiece) && board[[row+2,col]].is_a?(NullPiece) && at_start_row?
 
         res << [row-1, col] if color=='b' && board[[row-1,col]].is_a?(NullPiece)
-        res << [row-2, col] if color=='w' && board[[row-1,col]].is_a?(NullPiece) && board[[row-2,col]].is_a?(NullPiece) && at_start_row? 
+        res << [row-2, col] if color=='w' && board[[row-1,col]].is_a?(NullPiece) && board[[row-2,col]].is_a?(NullPiece) && at_start_row?
 
         res
     end
@@ -48,5 +47,5 @@ class Pawn < Piece
         res << [row-1, col-1] << [row-1, col+1] if color=='b'
         res
     end
- 
+
 end

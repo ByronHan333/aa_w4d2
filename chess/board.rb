@@ -67,6 +67,10 @@ class Board
     def valid_pos?(pos)
         pos.all?{|i| i.between?(0,7)}
     end
+    
+    def valid_cursor?(pos)
+        
+    end
 
     def add_piece(piece, pos)
 

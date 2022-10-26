@@ -76,8 +76,23 @@ class Cursor
   end
 
   def handle_key(key)
+    case key 
+    when KEYMAP[key] == :return || KEYMAP[key] == :space
+      return @cursor_pos
+    when KEYMAP[key] == :left || KEYMAP[key] == :right || KEYMAP[key] == :up || KEYMAP[key] == :down
+      diff = MOVES[KEYMAP[key]]
+      update_pos(diff)
+    when KEYMAP[key] == :ctrl_c 
+      Process.exit(0)
+    else
+      return MOVES[KEYMAP[key]]
+    end
   end
 
   def update_pos(diff)
+    row, col = @cursor_pos
+    dy, dx = diff
+    @cursor_pos = [row+dx, col+dy] if board.valid_pos?([row+dx, col+dy])
   end
+
 end

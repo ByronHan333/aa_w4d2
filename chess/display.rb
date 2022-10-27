@@ -27,8 +27,13 @@ class Display
     def build_row(row, i)
         row.each_with_index do |piece, j|
             color_options = colors_for(i, j)
-            piece.to_s.colorize(color_options)
+            # color_options = { background: :blue, color: :black }
+            # puts piece
+            # puts piece.to_s
+            # puts piece.to_s.colorize({ background: :blue, color: :white })
+            print piece.to_s.colorize(color_options)
         end
+        puts
     end
 
     def colors_for(i, j)
@@ -48,7 +53,8 @@ class Display
       system("clear")
       # puts "Fill the grid!"
       # puts "Arrow keys, WASD, or vim to move, space or enter to confirm."
-      build_grid.each { |row| puts row.join }
+      # build_grid.each { |row| puts row.join }
+      build_grid
     end
 end
 # Collapse

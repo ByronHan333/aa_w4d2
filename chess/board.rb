@@ -48,11 +48,12 @@ class Board
     def move_piece(color, start_pos, end_pos)
         raise 'No piece at start position' if self[start_pos].is_a?(NullPiece)
         raise 'Out of bounds' if !valid_pos?(start_pos) || !valid_pos?(end_pos)
-        #raise 'Not allowed to move piece this way' #move_dir
         piece = self[start_pos]
+        raise "teammates collision" if !piece.moves.include?(end_pos)
         self[end_pos] = piece
         piece.pos = end_pos
         self[start_pos] = @null_piece
+
 
         # if piece.moves(start_pos, end_pos)
         #     self[end_pos] = piece

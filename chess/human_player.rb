@@ -9,38 +9,42 @@ class HumanPlayer
     @display = display
   end
 
-  def make_move(board)
-    start_position = display.cursor.get_input
-    
-    until start_position 
+  def board
+    display.board
+  end
+
+  def make_move()
+    self.display.render
+
+    start_pos = display.cursor.get_input
+    start_piece = nil
+    until start_piece
       puts "Enter valid input."
-      start_position = display.cursor.get_input
-      start_piece = board[[start_position]]
+      start_pos = display.cursor.get_input
+      start_piece = board[start_pos] if start_pos
+      start_piece = nil if start_piece.color != color
     end
-    
-    row, col = start_position
-    print "#{row}, #{col} \n"
-    piece = board[[row,col]]
 
+    print "start piece: #{start_pos} \n"
 
-
-    end_position = display.cursor.get_input
-    until end_position
+    end_pos = nil
+    until end_pos
       puts "Enter valid input."
-      end_position = display.cursor.get_input
+      end_pos = display.cursor.get_input
     end
-    row, col = end_position
-    print "#{row}, #{col} \n"
 
-    
-    board.move_piece()
+    print "end position: #{end_pos} \n"
+
+    board.move_piece(color, start_pos, end_pos)
+
+    self.display.render
   end
 end
 
 b = Board.new
+# b.move_piece(:white, [0,1], [2,0])
 display = Display.new(b)
-
 human = HumanPlayer.new(:white, display)
-human.make_move(b)
-
+human.make_move()
+# display.render
 # human.make_move(b)

@@ -30,13 +30,14 @@ class Piece
         @pos = val
     end
 
-    # private
     def moves
         # good moves, move that are valid, and not result in check mate
         grow_unblocked_moves_in_dir.select do |pos|
             within_bound?(pos) && (empty?(pos) || opponent?(pos)) && !move_into_check?(pos)
         end
     end
+
+    # private
 
     def valid_moves
         # valid move, all allowed moves.
@@ -47,7 +48,9 @@ class Piece
 
     def move_into_check?(end_pos)
         dup_board = board.dup
-        dup_board.move_piece(color, pos, end_pos)
+        piece = dup_board[pos]
+        dup_board[end_pos] = piece
+        dup_board[pos] = dup_board.null_piece
         dup_board.in_check?(color)
     end
 
